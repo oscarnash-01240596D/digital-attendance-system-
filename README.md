@@ -2,7 +2,8 @@
 
  Student Information
 
-Name: Oscar Tetteh
+Name: Oscar Nash Tetteh
+Student ID: 01240596D 
 Programme: HND Electrical Engineering (Level 200)
 Course Code: EEE227
 Project Type: Mid-Semester Capstone Project
