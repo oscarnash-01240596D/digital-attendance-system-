@@ -2,100 +2,55 @@
 #include <vector>
 using namespace std;
 
-class Student {
-public:
+struct AttendanceRecord {
     string indexNumber;
-    string name;
-
-    Student(string idx, string nm) {
-        indexNumber = idx;
-        name = nm;
-    }
-
-    void display() {
-        cout << indexNumber << " - " << name << endl;
-    }
+    string status;
 };
 
-class AttendanceSession {
-public:
-    string courseCode;
-    string date;
-    string startTime;
-    int duration;
+vector<AttendanceRecord> records;
 
-    AttendanceSession(string c, string d, string s, int dur) {
-        courseCode = c;
-        date = d;
-        startTime = s;
-        duration = dur;
-    }
+void markAttendance() {
+    string index, status;
 
-    void display() {
-        cout << courseCode << " | " << date << " | " << startTime
-             << " | " << duration << " mins\n";
-    }
-};
-
-vector<Student> students;
-vector<AttendanceSession> sessions;
-
-void addStudent() {
-    string index, name;
-    cout << "Enter Index: ";
+    cout << "Enter Index Number: ";
     cin >> index;
-    cin.ignore();
-    cout << "Enter Name: ";
-    getline(cin, name);
 
-    students.push_back(Student(index, name));
+    cout << "Enter Status (Present/Absent/Late): ";
+    cin >> status;
+
+    records.push_back({index, status});
+    cout << "Recorded.\n";
 }
 
-void viewStudents() {
-    for (int i = 0; i < students.size(); i++)
-        students[i].display();
-}
+void showReport() {
+    int present = 0, absent = 0, late = 0;
 
-void createSession() {
-    string code, date, time;
-    int duration;
+    for (int i = 0; i < records.size(); i++) {
+        if (records[i].status == "Present") present++;
+        else if (records[i].status == "Absent") absent++;
+        else if (records[i].status == "Late") late++;
+    }
 
-    cout << "Course Code: ";
-    cin >> code;
-    cout << "Date: ";
-    cin >> date;
-    cout << "Start Time: ";
-    cin >> time;
-    cout << "Duration: ";
-    cin >> duration;
-
-    sessions.push_back(AttendanceSession(code, date, time, duration));
-    cout << "Session created.\n";
-}
-
-void viewSessions() {
-    for (int i = 0; i < sessions.size(); i++)
-        sessions[i].display();
+    cout << "\n--- SUMMARY ---\n";
+    cout << "Present: " << present << endl;
+    cout << "Absent : " << absent << endl;
+    cout << "Late   : " << late << endl;
 }
 
 int main() {
     int choice;
 
     do {
-        cout << "\n===== MENU =====\n";
-        cout << "1. Add Student\n";
-        cout << "2. View Students\n";
-        cout << "3. Create Session\n";
-        cout << "4. View Sessions\n";
+        cout << "\n==== ATTENDANCE MENU ====\n";
+        cout << "1. Mark Attendance\n";
+        cout << "2. View Report\n";
         cout << "0. Exit\n";
         cout << "Choice: ";
         cin >> choice;
 
         switch (choice) {
-            case 1: addStudent(); break;
-            case 2: viewStudents(); break;
-            case 3: createSession(); break;
-            case 4: viewSessions(); break;
+            case 1: markAttendance(); break;
+            case 2: showReport(); break;
         }
 
     } while (choice != 0);
